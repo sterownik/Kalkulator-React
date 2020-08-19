@@ -1,0 +1,70 @@
+*
+    font-family: sans-serif
+body
+    background-color: #264653
+h1
+    &.panel
+        background-color: #2A9D8F
+        color: #E9C46A
+        margin: 0 auto
+div
+    &.contentNumbAndOp
+        display: flex
+        padding: 0
+        margin: 0 auto
+        justify-content: space-between
+        div
+            font-size: 180%
+            color: #264653
+
+    &.operations
+        flex-basis: 23%
+        display: flex
+        flex-direction: column
+        justify-content: space-around
+        div
+            flex-basis: 24%
+            border-radius: 4px
+            line-height: 10vh
+            margin-top: 3px
+            border: solid 1px #E76F51
+            background-color: #2A9D8F
+            text-align: center
+            
+            cursor: pointer
+        
+
+        
+    &.numbers
+        flex-basis: 75%
+        display: flex
+        flex-wrap: wrap
+        justify-content: space-around
+        div
+            flex-basis: 32%
+            border-radius: 4px
+            line-height: 10vh
+            margin-top: 3px
+            border: solid 1px #2A9D8F
+            background-color: #E76F51
+            cursor: pointer
+            text-align: center
+            &:nth-child(10)
+                flex-basis: 99%
+                
+    &.checkConverter
+        margin: 0 auto
+        padding: 0
+        display: flex
+        justify-content: space-around
+        div
+            flex-basis: 24%
+            box-sizing: border-box
+            cursor: pointer
+            line-height: 6vh
+            background-color: #2A9D8F
+            color: #E9C46A
+            padding: 0
+            font-size: 180%
+            border: 2px solid #E76F51
+
