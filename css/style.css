@@ -18,6 +18,8 @@ div.contentNumbAndOp {
   display: flex;
   padding: 0;
   margin: 0 auto;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
@@ -26,6 +28,19 @@ div.contentNumbAndOp {
 div.contentNumbAndOp div {
   font-size: 180%;
   color: #264653;
+}
+
+div.contentNumbAndOp div.delete {
+  -ms-flex-preferred-size: 100%;
+      flex-basis: 100%;
+  border-radius: 4px;
+  line-height: 10vh;
+  margin-top: 3px;
+  border: solid 1px #E76F51;
+  background-color: #2A9D8F;
+  text-align: center;
+  font-size: 270%;
+  cursor: pointer;
 }
 
 div.operations {

@@ -12,10 +12,21 @@ div
         display: flex
         padding: 0
         margin: 0 auto
+        flex-wrap: wrap
         justify-content: space-between
         div
             font-size: 180%
             color: #264653
+            &.delete
+                flex-basis: 100%
+                border-radius: 4px
+                line-height: 10vh
+                margin-top: 3px
+                border: solid 1px #E76F51
+                background-color: #2A9D8F
+                text-align: center
+                font-size: 270%
+                cursor: pointer
 
     &.operations
         flex-basis: 23%
@@ -27,6 +38,7 @@ div
             border-radius: 4px
             line-height: 10vh
             margin-top: 3px
+            
             border: solid 1px #E76F51
             background-color: #2A9D8F
             text-align: center

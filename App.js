@@ -23,7 +23,7 @@ const Operations = (props) => {
       <div onClick={() => props.click("x")}>X</div>
       <div onClick={() => props.click("-")}>-</div>
       <div onClick={() => props.click("+")}>+</div>
-      <div onClick={() => props.click("=")}>=</div>
+      <div onClick={() => props.calculate()}>=</div>
     </div>
   );
 };
@@ -45,25 +45,96 @@ const Numbers = (props) => {
 };
 class Calculator extends React.Component {
   state = {
-    numberView: "",
+    numberViewFirst: "",
+    numberViewSecond: "",
+    operation: "",
+    numberCalculate: 0,
   };
   handleChangeNumber(number) {
-    console.log(number);
-    this.setState({
-      numberView: this.state.numberView + "" + number,
-    });
+    if (this.state.operation != "") {
+      this.setState({
+        numberViewSecond: this.state.numberViewSecond + "" + number,
+        numberCalculate: this.state.numberViewSecond + "" + number,
+      });
+    } else {
+      this.setState({
+        numberCalculate: this.state.numberViewFirst + "" + number,
+        numberViewFirst: this.state.numberViewFirst + "" + number,
+      });
+    }
   }
   handleMathOperation(operation) {
-    console.log(operation);
+    this.setState({
+      operation: operation,
+    });
+  }
+  handleDeleteAll = () => {
+    this.setState({
+      numberViewFirst: "",
+      numberViewSecond: "",
+      operation: "",
+      numberCalculate: 0,
+    });
+  };
+  handleCalculate() {
+    if (this.state.operation === "+") {
+      this.setState({
+        numberCalculate:
+          parseFloat(this.state.numberViewFirst) +
+          parseFloat(this.state.numberViewSecond),
+        numberViewFirst:
+          parseFloat(this.state.numberViewFirst) +
+          parseFloat(this.state.numberViewSecond),
+        numberViewSecond: "",
+      });
+    } else if (this.state.operation === "/") {
+      this.setState({
+        numberCalculate:
+          parseFloat(this.state.numberViewFirst) /
+          parseFloat(this.state.numberViewSecond),
+        numberViewFirst:
+          parseFloat(this.state.numberViewFirst) /
+          parseFloat(this.state.numberViewSecond),
+        numberViewSecond: "",
+      });
+    } else if (this.state.operation === "x") {
+      this.setState({
+        numberCalculate:
+          parseFloat(this.state.numberViewFirst) *
+          parseFloat(this.state.numberViewSecond),
+        numberViewFirst:
+          parseFloat(this.state.numberViewFirst) *
+          parseFloat(this.state.numberViewSecond),
+        numberViewSecond: "",
+      });
+    } else if (this.state.operation === "-") {
+      this.setState({
+        numberCalculate:
+          parseFloat(this.state.numberViewFirst) -
+          parseFloat(this.state.numberViewSecond),
+        numberViewFirst:
+          parseFloat(this.state.numberViewFirst) -
+          parseFloat(this.state.numberViewSecond),
+        numberViewSecond: "",
+      });
+    }
   }
   render() {
+    console.log(this.state.numberCalculate);
+
     return (
       <>
-        <Panel view={this.state.numberView} />
+        <Panel view={this.state.numberCalculate} />
         <CheckConverter />
         <div className="contentNumbAndOp col-10 col-xl-8">
           <Numbers click={this.handleChangeNumber.bind(this)} />
-          <Operations click={this.handleMathOperation.bind(this)} />
+          <Operations
+            calculate={this.handleCalculate.bind(this)}
+            click={this.handleMathOperation.bind(this)}
+          />
+          <div onClick={this.handleDeleteAll} className="delete">
+            C
+          </div>
         </div>
       </>
     );
