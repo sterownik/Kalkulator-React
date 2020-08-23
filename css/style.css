@@ -67,6 +67,18 @@ div.operations div {
   background-color: #2A9D8F;
   text-align: center;
   cursor: pointer;
+  -webkit-filter: none;
+          filter: none;
+}
+
+div.operations div.click {
+  -webkit-filter: blur(1px);
+          filter: blur(1px);
+}
+
+div.operations div.unClick {
+  -webkit-filter: none;
+          filter: none;
 }
 
 div.numbers {
@@ -120,5 +132,15 @@ div.checkConverter div {
   padding: 0;
   font-size: 180%;
   border: 2px solid #E76F51;
+}
+
+div.checkConverter div.click {
+  -webkit-filter: blur(1px);
+          filter: blur(1px);
+}
+
+div.checkConverter div.unClick {
+  -webkit-filter: none;
+          filter: none;
 }
 /*# sourceMappingURL=style.css.map */

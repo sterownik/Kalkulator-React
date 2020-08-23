@@ -8,10 +8,19 @@ const Panel = (props) => {
 const CheckConverter = (props) => {
   return (
     <div className="col-10 col-xl-8 text-center checkConverter mt-1">
-      <div className="text-center  ">DEC</div>
-      <div className="text-center  ">BIN</div>
-      <div className="text-center  "> OCT</div>
-      <div className="text-center  ">HEX</div>
+      <div onClick={() => props.click("dec")} className=" click text-center  ">
+        DEC
+      </div>
+      <div onClick={() => props.click("bin")} className="text-center  ">
+        BIN
+      </div>
+      <div onClick={() => props.click("oct")} className="text-center  ">
+        {" "}
+        OCT
+      </div>
+      <div onClick={() => props.click("hex")} className="text-center  ">
+        HEX
+      </div>
     </div>
   );
 };
@@ -49,21 +58,31 @@ class Calculator extends React.Component {
     numberViewSecond: "",
     operation: "",
     numberCalculate: 0,
+    numberCalculateBeforeView: 0,
   };
   handleChangeNumber(number) {
     if (this.state.operation != "") {
       this.setState({
         numberViewSecond: this.state.numberViewSecond + "" + number,
         numberCalculate: this.state.numberViewSecond + "" + number,
+        numberCalculateBeforeView: this.state.numberViewSecond + "" + number,
       });
     } else {
       this.setState({
         numberCalculate: this.state.numberViewFirst + "" + number,
         numberViewFirst: this.state.numberViewFirst + "" + number,
+        numberCalculateBeforeView: this.state.numberViewFirst + "" + number,
       });
     }
   }
   handleMathOperation(operation) {
+    const buttons = document.querySelectorAll(".operations div");
+    buttons.forEach((item) => {
+      item.classList.add("unClick");
+    });
+    const node = ReactDOM.findDOMNode(event.target);
+    node.className = "click";
+
     this.setState({
       operation: operation,
     });
@@ -74,6 +93,31 @@ class Calculator extends React.Component {
       numberViewSecond: "",
       operation: "",
       numberCalculate: 0,
+      numberCalculateBeforeView: 0,
+    });
+  };
+  handleConverte = (option) => {
+    let dec = this.state.numberCalculateBeforeView;
+    dec = parseInt(dec);
+
+    const buttons = document.querySelectorAll(".checkConverter div");
+    buttons.forEach((item) => {
+      item.classList.add("unClick");
+    });
+    const node = ReactDOM.findDOMNode(event.target);
+    node.className = "click";
+
+    if (option === "bin") {
+      // console.log(dec.toString(2));
+      dec = dec.toString(2);
+    } else if (option === "oct") {
+      dec = dec.toString(8);
+    } else if (option === "hex") {
+      dec = dec.toString(16);
+    } else {
+    }
+    this.setState({
+      numberCalculate: dec,
     });
   };
   handleCalculate() {
@@ -86,6 +130,9 @@ class Calculator extends React.Component {
           parseFloat(this.state.numberViewFirst) +
           parseFloat(this.state.numberViewSecond),
         numberViewSecond: "",
+        numberCalculateBeforeView:
+          parseFloat(this.state.numberViewFirst) +
+          parseFloat(this.state.numberViewSecond),
       });
     } else if (this.state.operation === "/") {
       this.setState({
@@ -96,6 +143,9 @@ class Calculator extends React.Component {
           parseFloat(this.state.numberViewFirst) /
           parseFloat(this.state.numberViewSecond),
         numberViewSecond: "",
+        numberCalculateBeforeView:
+          parseFloat(this.state.numberViewFirst) /
+          parseFloat(this.state.numberViewSecond),
       });
     } else if (this.state.operation === "x") {
       this.setState({
@@ -106,6 +156,9 @@ class Calculator extends React.Component {
           parseFloat(this.state.numberViewFirst) *
           parseFloat(this.state.numberViewSecond),
         numberViewSecond: "",
+        numberCalculateBeforeView:
+          parseFloat(this.state.numberViewFirst) *
+          parseFloat(this.state.numberViewSecond),
       });
     } else if (this.state.operation === "-") {
       this.setState({
@@ -116,16 +169,17 @@ class Calculator extends React.Component {
           parseFloat(this.state.numberViewFirst) -
           parseFloat(this.state.numberViewSecond),
         numberViewSecond: "",
+        numberCalculateBeforeView:
+          parseFloat(this.state.numberViewFirst) -
+          parseFloat(this.state.numberViewSecond),
       });
     }
   }
   render() {
-    console.log(this.state.numberCalculate);
-
     return (
       <>
         <Panel view={this.state.numberCalculate} />
-        <CheckConverter />
+        <CheckConverter click={this.handleConverte} />
         <div className="contentNumbAndOp col-10 col-xl-8">
           <Numbers click={this.handleChangeNumber.bind(this)} />
           <Operations

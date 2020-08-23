@@ -42,8 +42,15 @@ div
             border: solid 1px #E76F51
             background-color: #2A9D8F
             text-align: center
-            
             cursor: pointer
+            filter: none
+            &.click
+                filter: blur(1px)
+            &.unClick
+                filter: none
+            
+            
+                
         
 
         
@@ -79,4 +86,8 @@ div
             padding: 0
             font-size: 180%
             border: 2px solid #E76F51
+            &.click
+                filter: blur(1px)
+            &.unClick
+                filter: none
 
